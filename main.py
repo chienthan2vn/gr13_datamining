@@ -1,13 +1,13 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib  # Dùng để load mô hình đã huấn luyện
+from tensorflow.keras.models import load_model
 from sklearn.preprocessing import StandardScaler
 
 # 📌 Load mô hình (giả sử đã huấn luyện và lưu dưới dạng .pkl)
 @st.cache_resource
 def load_model():
-    model = joblib.load("model.pkl")  # Đổi "model.pkl" thành file mô hình của bạn
+    model = load_model.load("model.h5")  # Đổi "model.pkl" thành file mô hình của bạn
     return model
 
 # 📌 Hàm xử lý dữ liệu đầu vào và dự đoán
@@ -37,7 +37,7 @@ if uploaded_file is not None:
     
     if model:
         # Thực hiện dự đoán
-        predictions = predict(model, df)
+        predictions = model.predict(df)
 
         # Tạo DataFrame kết quả
         results = df.copy()
